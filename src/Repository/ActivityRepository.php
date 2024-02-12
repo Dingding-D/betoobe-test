@@ -21,6 +21,18 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
+    public function findAllUnderAge($age): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.minAge >= :val')
+            ->setParameter('val', $age)
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 //    /**
 //     * @return Activity[] Returns an array of Activity objects
 //     */
